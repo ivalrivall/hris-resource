@@ -1,3 +1,3 @@
 ## How to use this project
-
-docker compose up -d postgres mongo rabbitmq
+1. setup environment variables in.env file
+2. run `docker-compose up -d`

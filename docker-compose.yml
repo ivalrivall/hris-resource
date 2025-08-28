@@ -7,6 +7,8 @@ volumes:
     driver: ${VOLUMES_DRIVER}
   mongo:
     driver: ${VOLUMES_DRIVER}
+  redis:
+    driver: ${VOLUMES_DRIVER}
 
 services:
   ### PostgreSQL ###########################################
@@ -59,5 +61,17 @@ services:
     volumes:
       - ${DATA_PATH_HOST}/mongo:/data/db
       - ${DATA_PATH_HOST}/mongo_config:/data/configdb
+    networks:
+      - backend
+
+  ### Redis ################################################
+  redis:
+    restart: always
+    build: ./redis
+    volumes:
+      - ${DATA_PATH_HOST}/redis:/data
+    command: --requirepass ${REDIS_PASSWORD}
+    ports:
+      - "${REDIS_PORT}:6379"
     networks:
       - backend
